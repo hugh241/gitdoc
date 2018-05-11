@@ -6,6 +6,27 @@
   });
 
   $(document).ready(function(){
+    $(document).on("scroll", onScroll);
+ 
+    $('a[href^="#"]').on('click', function (e) {
+      e.preventDefault();
+      $(document).off("scroll");
+ 
+      $('a').each(function () {
+        $(this).removeClass('active');
+      })
+      $(this).addClass('active');
+ 
+      var target = this.hash;
+      $target = $(target);
+      $('html, body').stop().animate({
+        'scrollTop': $target.offset().top+2
+      }, 500, 'swing', function () {
+        window.location.hash = target;
+        $(document).on("scroll", onScroll);
+      });
+    });
+
     var bodyEl = document.body,
     openbtn = document.getElementById('open-button'),
     closebtn = document.getElementById('close-button'),
@@ -52,5 +73,27 @@
       baseClass:"owl-carousel",
       theme:"owl-theme"
     });
+
+    $('.portfolio-image li a').magnificPopup({
+      type: 'image',
+      gallery: {
+        enabled: true
+      }
+    });
   });
+
+  function onScroll(event){
+    var scrollPosition = $(document).scrollTop();
+    $('.menu-list a').each(function () {
+      var currentLink = $(this);
+      var refElement = $(currentLink.attr("href"));
+      if (refElement.position().top <= scrollPosition && refElement.position().top + refElement.height() > scrollPosition) {
+        $('.menu-list a').removeClass("active");
+        currentLink.addClass("active");
+      }
+      else{
+        currentLink.removeClass("active");
+      }
+    });
+  }
 })(jQuery);
