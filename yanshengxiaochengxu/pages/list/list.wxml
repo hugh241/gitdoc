@@ -1,0 +1,75 @@
+<!--index.wxml-->
+<scroll-view scroll-y="true" class="container" lower-threshold="3" bindscrolltolower="lower">
+  <view class="search flex-wrp">
+      <view class="search-left flex-item">
+          <image src="../../images/search.png"></image>
+          <input placeholder="搜索贴吧" placeholder-class="search-placeholder"/>
+      </view>
+      <view class="search-right flex-item" bindtap="upper">
+          <image src="../../images/lighting.png"></image>
+      </view>
+  </view>
+
+  <block wx:for="{{list}}" wx:key="key" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+    <view class="feed-item">
+      <view class='feed-source'>
+        <a>
+          <text class="list_tname">{{item.name}}</text>
+        </a>
+      </view>
+      <view class='feed-source'>
+        <a>
+          <text class="list_title" bindtap='_jump2Content' data-title="{{item.title}}" data-id="{{item.id}}">{{item.title}}</text>
+          <view class="avatar list-post-num">
+            <label>{{item.answerNum}}</label>
+            <label class='list-triangle-border'></label>
+            <label class='list-triangle-body'></label>
+          </view>  
+        </a>
+      </view>
+      <view class='feed-source auto_height'>
+        <a class="auto_height">
+          <text class='auto_height list_desc'>{{item.desc}}</text>
+        </a>
+      </view>
+      <view class="feed-content">
+        <view class="answer-body">
+          <view wx:if="{{item.imgs != ''}}">
+            <view class="content_img" wx:if='{{!showImgList[idx]}}'>
+              <image src="{{img.src}}"  bindtap="showImgs" wx:for="{{item.imgs}}" wx:key="imgskey" wx:for-item="img" wx:for-index="imgid" data-row="{{idx}}" data-index="{{imgid}}"></image>
+            </view>
+            <view class='img-list-box' wx:if='{{showImgList[idx]}}'>
+              <view class="img-list-title p_tools">
+                <a class="p_putup" bindtap="closeImgs" data-row="{{idx}}">收起</a>
+                <span class="line">|</span>
+                <a class="tb_icon_ypic" bindtap="previewImage" data-row="{{idx}}">查看大图</a>
+                <span class="line">|</span>
+                <a class="tb_icon_turnleft" bindtap="turnleft" data-row="{{idx}}">向左转</a>
+                <span class="line">|</span>
+                <a class="tb_icon_turnright" bindtap="turnright" data-row="{{idx}}">向右转</a>
+              </view>
+              <swiper indicator-dots="true" class="list-original-imgs swiper" style='height:{{swiperheights[idx][currentNavtab[idx]]}}px'  bindchange="swiperChange" data-row="{{idx}}" current="{{currentNavtab[idx]}}">
+                <swiper-item wx:for="{{item.imgs}}" wx:key="imgskey" wx:for-item="img" wx:for-index="index">
+                  <image src="{{img.original}}" bindload="imageLoad" bindtap="previewImage" data-row="{{idx}}" data-index="{{index}}" style='height:{{imgheights[idx][index]}}px;width:{{swiperwidth}}px;transform:translate(0px,{{translateY[idx][index]}}px) rotate({{transformArr[idx][index]}}deg) scale(1, 1)'/>
+                </swiper-item>
+              </swiper>
+            </view>
+          </view>
+          <view class="answer-actions" bindtap="bindItemTap">
+            <view class="like people">
+              <a>
+                <label class=''></label>
+                {{item.author.txt}}
+                <!-- <image wx:if="{{item.author.img}}" src="{{item.author.img}}"></image> -->
+              </a>
+            </view>
+            <view class="comments time">
+              <a> {{item.time}}</a>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+</scroll-view>
+

@@ -1,0 +1,88 @@
+<!--question.wxml-->
+<!-- <scroll-view scroll-y="true" bindscroll="scroll" scroll-top="{{scrollTop}}" style="position:absolute; top:0; left:0; right:0; bottom:0;"> -->
+  <view class="container">
+    <view class="feed-item" wx:for="{{list}}" wx:key="key" wx:for-index="idx" wx:for-item="item" data-idx="{{idx}}">
+      <view class="feed-source">
+          <a class="" bindTap="">
+            <view class="avatar">
+              <image src="{{item.authorPortrait}}"></image>
+            </view>
+            <text>{{item.authorName}}</text>
+            <view class="avatar badgeBar">
+              <text class='badgetitle'>{{item.badgeTitle}}</text>
+              <text wx:if="{{item.badgeLv < 10}}" class="level">{{item.badgeLv}}</text>
+              <text wx:if="{{item.badgeLv >= 10}}" class="level2">{{item.badgeLv}}</text>
+              <image wx:if="{{item.badgeLv < 10}}" src="../../images/badgeBar1.gif"></image> 
+              <image wx:if="{{item.badgeLv >= 10}}" src="../../images/badgeBar2.gif"></image>
+            </view>
+            <text wx:if="{{item.islouzhu}}" class="louzhu">楼主</text>
+          </a>
+      </view>
+      <view class="feed-content">
+        <view class="content-body">
+          <view class='content'>
+            <block wx:for="{{item.content}}" wx:for-item="content" wx:key="content">
+              <text wx:if="{{content[0] == 'NORMALTEXT'}}">{{content[1]}}</text>
+              <text wx:if="{{content[0] == 'TEXT'}}">{{content[1]}}</text>
+              <text wx:if="{{content[0] == 'N'}}">\n</text>
+              <image wx:if="{{content[0] == 'Smiley'}}" src='{{content[1]}}' class='smiley'></image>
+              <image wx:if="{{content[0] == 'Image'}}" src='{{content[1]}}' class='image' mode="widthFix"></image>
+              <image wx:if="{{content[0] == 'SMALLImage'}}" src='{{content[1]}}' class='SMALLImage' mode="widthFix"></image>
+              <text wx:if="{{content[0] == 'ATEXT'}}" class="a">{{content[1]}}</text>
+              <image wx:if="{{content[0] == 'DIVBG_TOP'}}" src='{{content[1]}}' class='image' style='vertical-align:bottom;' mode="widthFix"></image>
+              <image wx:if="{{content[0] == 'DIVBG_BOTTOM'}}" src='{{content[1]}}' class='image' mode="widthFix"></image>
+              <text wx:if="{{content[0] == 'DIVTEXT'}}" style='background:url({{content[2]}})' class='divtext'>{{content[1]}}</text>
+            </block>
+          </view>
+          <view class="answer-actions">
+            <view class="dot">
+              <a>{{item.flower}} </a>
+            </view>
+            <view class="dot">
+                <a>{{item.posttime}} </a>
+            </view>
+            <view class="commenta">
+                <a>回复({{commentList[item.id].comment_num?commentList[item.id].comment_num:0}})</a>
+            </view>
+          </view>
+          <view class='comment_list' wx:if="{{comments[item.id]}}">
+            <!-- <view class='comment'  wx:for="{{item.commonList.comment_info}}" wx:for-item="comment"> -->
+            <view class='comment'  wx:for="{{comments[item.id].comment_info}}" wx:for-item="comment" wx:for-index="commentindex" wx:if="{{commentindex >= comment_max_show?commentList[item.id]['showpart']:true}}" wx:key="comment">
+              <view class="avatar">
+                <image src="{{comment.portrait}}" mode="widthFix"></image>
+              </view>
+              <text class="authorname">{{comment.nickname}}:</text>
+              <view class="comment_content">
+                <block wx:for="{{comment.contentarr}}" wx:for-item="subcoment" wx:key="subcoment">
+                  <image wx:if="{{subcoment[0] == 'Smiley'}}" src='{{subcoment[1]}}' class='smiley'></image>
+                  <text wx:if="{{subcoment[0] == 'NORMALTEXT'}}">{{subcoment[1]}}</text>
+                  <text wx:if="{{subcoment[0] == 'TEXT'}}">{{subcoment[1]}}</text>
+                  <text wx:if="{{subcoment[0] == 'ATEXT'}}" class="a">{{subcoment[1]}}</text>
+                </block>
+              </view>
+              <text class='time'>{{comment.now_time}}</text>
+            </view>
+            <view class="showmore" wx:if="{{commentList[item.id].comment_num > comment_max_show?!commentList[item.id]['showpart']:false}}">
+              <text>还有{{commentList[item.id].comment_num-comment_max_show}}条回复,</text>
+              <text class='a' bindtap='showMore' data-itemid="{{item.id}}">点击查看</text>
+            </view>
+            <view class="pageview" wx:if="{{commentList[item.id]['showpart']&&commentList[item.id].pagesnum > 1}}">
+              <text class="page p_first {{commentList[item.id].currentpage == 1?'hidden':''}}" bindtap='Pfirst' data-id="{{item.id}}">首页</text>
+              <text class="page p_prev {{commentList[item.id].currentpage == 1?'hidden':''}}" bindtap='Pprev' data-id="{{item.id}}">上一页</text>
+              <text class="page p_num {{commentList[item.id].currentpage==pagenum?'currentpage':''}}" wx:for="{{commentList[item.id].pagesnumArr}}" wx:for-item="pagenum" wx:key="pagenum" bindtap='Pjumpto' data-pagenum="{{pagenum}}" data-id="{{item.id}}">{{pagenum}}</text>
+              <text class="page p_next {{commentList[item.id].currentpage == commentList[item.id].pagesnum?'hidden':''}}" bindtap='Pnext' data-id="{{item.id}}">下一页</text>
+              <text class="page p_last {{commentList[item.id].currentpage == commentList[item.id].pagesnum?'hidden':''}}" bindtap='Plast' data-id="{{item.id}}">尾页</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='cpages'>
+      <text class="prevpage page {{pn==1?'hidden':''}}" bindtap='jump' data-topage="{{pn-1}}">上一页</text>
+      <text class="nextpate page {{pn==page[1]?'hidden':''}}" bindtap='jump' data-topage="{{pn+1}}">下一页</text>
+      <text class='pageinfo'>共{{page[1]}}页，当前第{{pn}}页</text>
+    </view>
+  </view>
+<!-- </scroll-view> -->
+
+

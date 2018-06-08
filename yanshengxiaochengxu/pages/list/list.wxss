@@ -1,0 +1,200 @@
+/**index.wxss**/
+
+.container{
+  height: 1500rpx;
+}
+.container .search{
+  width: 735rpx;
+  height: 65rpx;
+  padding: 12.5rpx 0 12.5rpx 15rpx;
+  background: #2A8CE5;
+}
+.container .search-left{
+  flex: 8;
+  background: #4EA3E7;
+  text-align: left;
+}
+.container .search-left input{
+  display: inline-block;
+  height: 65rpx;
+  font-size: 26rpx;
+}
+.search-placeholder{
+  color: #8CCEFD;
+  line-height: 20rpx;
+}
+.container .search .search-left image{
+  display: inline-block;
+  width: 35rpx;
+  height: 35rpx;
+  padding: 15rpx 15rpx 15rpx 20rpx;
+}
+.container .search .search-right{
+  flex: 1;
+}
+.container .search .search-right image{
+  width: 45rpx;
+  height: 45rpx;
+  padding: 10rpx;
+}
+
+.container{
+  padding: 0;
+  font-size: 14rpx;
+  background: #F0F4F3;
+  color: #000;
+}
+/*feed-item part is in app.wxss for multiplexing*/
+
+
+
+
+
+
+
+.list-post-num{
+  position: absolute;
+  top: -2px;
+  margin-left: 10px;
+  font-size: 12px;
+  color: #f54646;
+  border: 1px solid #E4E1E2;
+  height: 15px;
+  line-height: 15px;
+  padding: 0 10px;
+  background: #fcfcfc;
+  font-family: Arial SimSun;
+}
+.list-triangle-border{
+  position: absolute;
+  font-size: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  line-height: 0;
+  bottom: -7px;
+  left: -1px;
+  border-style: dashed none dashed solid;
+  border-color: transparent transparent transparent #E4E1E2;
+  border-width: 6px 0 6px 6px;
+}
+.list-triangle-body{
+  position: absolute;
+  font-size: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  line-height: 0;
+  bottom: -5px;
+  left: 0;
+  border-style: dashed none dashed solid;
+  border-color: transparent transparent transparent #fcfcfc;
+  border-width: 6px 0 6px 6px;
+}
+.container .feed-item .feed-source .avatar wx-image.list_img {
+  width:210rpx;
+  height: 160rpx;
+  border-radius: 0px;
+  margin-left:10rpx;
+  border:1rpx solid #CBCBCB;
+}
+.container .feed-item .feed-content .answer-actions .people{
+  vertical-align: middle;
+}
+.container .feed-item .feed-content .answer-actions .people:before {
+  content:"👮";
+}
+.container .feed-item .feed-content .answer-actions .people image{
+  width:30rpx;
+  height:30rpx;
+  vertical-align:middle;
+}
+.container .feed-item .feed-content .answer-actions .time{
+  margin-left:20rpx;
+}
+.container .feed-item .feed-content .answer-actions .time:before {
+  content:"🕕";
+}
+.content_img{
+  padding:10rpx 5rpx;
+  text-align: center;
+}
+.content_img image{
+  width:210rpx;
+  height:147rpx;
+  border:1rpx solid #efefef;
+  margin-right: 10rpx;
+}
+.content_img image:last-child {
+  margin-right: 0rpx;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.img-list-box{
+  border: solid 1px #dedede;
+  margin:0rpx 20rpx;
+  padding:5rpx 20rpx;
+  background: #f5f5f5;
+}
+
+.p_tools{
+  line-height: 15px;
+  margin-bottom: 9rpx;
+}
+.p_tools .p_putup {
+  background-position: 0 -923px;
+}
+
+.p_tools a{
+  padding-left: 15px;
+  background: url(http://tb2.bdstatic.com/tb/static-frs/img/frs_bright/images_bmg/tb_icon.png?t=130806162612&t=1516264949551) no-repeat scroll 0 0 transparent;
+  font-size: 24rpx;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: #2d64b3;
+}
+
+.p_tools .tb_icon_ypic {
+    background-position: 0 -961px;
+}
+
+.p_tools .tb_icon_turnleft {
+    background-position: 0 -996px;
+}
+
+.p_tools .tb_icon_turnright {
+    background-position: 0 -1030px;
+}
+
+.p_tools span {
+  margin: 0 9px;
+  color: #D9D9D9;
+  line-height: 15px;
+  font-size: 12px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.list-original-imgs swiper-item image{
+  display:block;
+}
+
+
+
+
+
+
+
+
+.container .search .search-left wx-image,.container .search-left wx-input{
+  vertical-align: middle;
+}
